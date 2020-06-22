@@ -1,0 +1,189 @@
+﻿@model HomeDetailsViewModel
+
+
+@{
+    ViewBag.Title = "Employee Details";
+    var photoPath = "~/img/" + (Model.student.Photo ?? "no-image.png");
+}
+
+
+@*@{
+        var employee = ViewData["Employee"] as EmployeeManagement.Models.Employee;
+    }*@
+
+<section id="breacrumb">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="active">Dashboard / @Model.PageTitle</li>
+        </ol>
+    </div>
+</section>
+
+<section id="main">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active main-color-bg">
+                        <i class="fa fa-cog"></i> Student Details
+                    </a>
+                    
+                    <a asp-action="guarantor" asp-controller="home" asp-route-id="@Model.student.Id" class="list-group-item list-group-item-action"> <i class="fa fa-book"></i> Add Guarantor <span class="badge badge-primary badge-pill">3</span></a>
+                    <a href="users.html" class="list-group-item list-group-item-action"><i class="fa fa-user-circle" aria-hidden="true"></i> Users <span class="badge badge-primary badge-pill">14</span></a>
+                    <a href="posts.html" class="list-group-item list-group-item-action"><i class="fa fa-money"></i> Payment <span class="badge badge-primary badge-pill">20</span></a>
+
+                </div>
+
+                <div class="card card-body mt-3">
+                    <h4>Disk Space Used</h4>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="wid.th: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-9">
+
+
+                <!-- user table  -->
+
+                <div class="panel-body">
+                    
+
+
+                    @*<a asp-controller="home" asp-action="details" asp-route-id="@emp.Id" class="btn btn-primary">View</a>*@
+
+                    <ul class="nav nav-tabs" id="accordionExample">
+                        <li>
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Sudent Biodata
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-12">
+                                            <img class="img-thumbnail" src="@photoPath" alt="Card image cap" asp-append-version="true">
+                                            <h2 class="h2 text-capitalize text-center mt-3">@Model.student.Name</h2>
+                                        </div>
+                                        <div class="col-md-8 col-sm-12">
+                                            <ul class="list-group">
+                                                <li class="list-group-item"><strong>Email</strong> @Model.student.Email</li>
+                                                <li class="list-group-item"><strong>Phone:</strong>@Model.student.PhoneNumber</li>
+                                                <li class="list-group-item"><strong>Address</strong>@Model.student.Address</li>
+                                                <li class="list-group-item"><strong>Marital Status</strong>@Model.student.MaritalStatus</li>
+                                                <li class="list-group-item"><strong>Nationality</strong>@Model.student.Nationalty</li>
+                                                <li class="list-group-item"><strong>Status:</strong>@Model.student.Status</li>
+                                                <li class="list-group-item"><strong>Admission Type:</strong>@Model.student.AdmissionType</li>
+
+                                                <li class="list-group-item"><strong>Health:</strong>@Model.student.HealthCondition</li>
+                                            </ul>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        NEXT OF KIN
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                    <div class="h3">Name: <strong>@Model.student.NextOFKinName</strong></div>
+                                    <div class="h3">Phone Number: <strong>@Model.student.NextOfKinNumber</strong></div>
+                                    <div class="h3">Address: <strong>@Model.student.NextOfKinAddress</strong></div>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="card-header" id="headingThree">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Guarantors
+                                    </button>
+                                </h2>
+                            </div>   
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    @foreach (var g in Model.guarantors)
+                                    {
+                                        <ul class="list-group mb-5">
+                                            <li class="list-group-item">Name: <strong>@g.Name</strong></li>
+                                            <li class="list-group-item">Address: <strong>@g.Address </strong></li>
+                                            <li class="list-group-item"> <strong>@g.Phone </strong></li>
+                                            <li class="list-group-item"> <strong>@g.Email </strong></li>
+
+                                        </ul>
+                                    }
+                                </div>   
+                            </div>
+                        </li>
+                        <li>
+                            <div class="card-header" id="headingFour">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Payments
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    @if (Model.payment != null && Model.payment.Count > 0)
+                                    {
+                                        @foreach (var g in Model.payment)
+                                        {
+                                            <ul class="list-group mb-5">
+                                                <li class="list-group-item">Amount: <strong>@g.AmouontPaid</strong></li>
+                                                <li class="list-group-item">D/T: <strong>@g.PaymentDate </strong></li>
+                                                <li class="list-group-item">Method: <strong>@g.PaymentMethod </strong></li>
+                                                
+                                            </ul>
+                                        }
+                                        <a class="btn btn-dark" style="color:white" asp-controller="Home" asp-action="CreatePayment" asp-route-id="@Model.student.Id">Add Payment</a>
+                                    }
+                                    else
+                                    {
+                                        <h3>No Payment Yet</h3>
+                                        <a class="btn btn-dark" asp-controller="Home" asp-action="CreatePayment" asp-route-id="@Model.student.Id">Add Payment</a>
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                    @*<a class="btn btn-dark" asp-controller="Program" asp-action="Programs" asp-route-id="@Model.student.Id">Create Program & Course</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+@section Scripts{
+
+    @if (ViewBag.Message != null)
+    {
+        <script>
+        window.onload = function () {
+            alert("@ViewBag.Message");
+        }
+        </script>
+    }
+}
